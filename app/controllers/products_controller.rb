@@ -53,11 +53,11 @@ class ProductsController < ApplicationController
 	
 	
 	
-    require 'fileutils'
     
     file = File.join("public/resources/images", params[:product][:image_name].original_filename)
-    File.cp tmp.path, file
-	
+    
+    # write the file
+    File.open(file, "wb") { |f| f.write(params[:product][:image_name].read) }
 	
 	@product.image_name = "resources/images/" + params[:product][:image_name].original_filename
 	
