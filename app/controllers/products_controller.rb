@@ -54,6 +54,7 @@ class ProductsController < ApplicationController
 	
 	
     require 'fileutils'
+    
     file = File.join("public/resources/images", params[:product][:image_name].original_filename)
     File.cp tmp.path, file
 	
