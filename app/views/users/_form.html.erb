@@ -1,0 +1,61 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Full Name" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirm Password" %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :gender %><br />
+    <%= f.select(:gender, options_for_select([['Male'],['Female']],'Male')) %>
+  </div>
+  <div class="field">
+    <%= f.label :birthday %><br />
+    <%= f.date_select :birthday %>
+  </div>
+  <div class="field">
+    <%= f.label :bids_left %><br />
+    <%= f.number_field :bids_left %>
+  </div>
+  <div class="field">
+    <%= f.label :verified %><br />
+    <%= f.check_box :verified %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.check_box :status %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

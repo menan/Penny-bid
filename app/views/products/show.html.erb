@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @product.name %></h2>
+
+<p>
+  <img src="/<%= @product.image_name %>" />
+</p>
+<p>
+  <b>Original price:</b>
+  $<%= @product.original_price %>
+</p>
+
+<p>
+  <b>Current price:</b>
+  $<%= @product.current_price %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @product.description %>
+</p>
+
+<p>
+  <b>Ending in </b><%= time_ago_in_words(@product.end_time,true) %>
+</p>
+
+<p>
+  <b>Sold:</b>
+  <%= @product.sold %>
+</p>
+
+<h2>Bid History:</h2>
+<%= render @product.bids %>
+ 
+<%= render "bids/form" %>
+
+ 
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

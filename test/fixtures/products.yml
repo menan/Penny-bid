@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  original_price: 9.99
+  current_price: 9.99
+  image_name: MyString
+  description: MyText
+  end_time: 2011-10-10 12:58:08
+  sold: false
+
+two:
+  name: MyString
+  original_price: 9.99
+  current_price: 9.99
+  image_name: MyString
+  description: MyText
+  end_time: 2011-10-10 12:58:08
+  sold: false
