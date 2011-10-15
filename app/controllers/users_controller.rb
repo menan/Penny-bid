@@ -32,6 +32,11 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /products/1/complete
+  def complete
+    @user = User.find(params[:id])
+  end
+  
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
