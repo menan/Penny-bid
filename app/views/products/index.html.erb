@@ -5,6 +5,7 @@
 
   <tr>
 <% @products.each do |product| %>
+	<% @product = product %>
     <td align="center">
     	<%= link_to product.name,product %><br />
     	
@@ -12,7 +13,7 @@
     	Original Price: $<%= product.original_price %><br />
     	Current Price: $<%= product.current_price %><br />
     	Ending in <%= time_ago_in_words(product.end_time,true) %> <br />
-    	<%= link_to 'Bid', product %><% product.sold %><br />
+    	<%= render "bids/form" %><% product.sold %><br />
     	<%= link_to 'Show', product %> | 
     	<%= link_to 'Edit', edit_product_path(product) %> | 
     	<%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %>

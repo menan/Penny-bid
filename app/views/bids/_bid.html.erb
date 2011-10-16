@@ -1,4 +1,10 @@
 <p>
-  <%= bid.user.name %> at <%= bid.created_at %>
+  <%= if bid.user
+  		bid.user.name
+  	else
+  		'Deleted User'
+  	 end %>
+  
+   at <%= bid.created_at %>
 </p>
  
