@@ -10,17 +10,21 @@
       </ul>
     </div>
   <% end %>
-
+	
   <div class="field">
-    <%= f.label :name, "Full Name" %><br />
+    Email:<br />
+    <b><%= @user.email %></b>
+  </div>
+  <div class="field">
+    <%= f.label :name, "Full Name*" %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :password %>*<br />
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation, "Confirm Password" %><br />
+    <%= f.label :password_confirmation, "Confirm Password" %>*<br />
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="field">
@@ -36,10 +40,10 @@
     <%= f.date_select :birthday %>
   </div>
   <div class="field">
-    <%= f.label :bids_left %><br />
-    <%= f.number_field :bids_left %>
+    Bids Left:<br />
+    <b><%= @user.bids_left %></b>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Complete Registration" %>
   </div>
 <% end %>

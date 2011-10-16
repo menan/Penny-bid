@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
   
   def welcome_email(user)
     @user = user
-    @url  = "#{Rails.root}/users/#{@user.id}/complete"
+    @url  = "http://pennybid.heroku.com/users/#{@user.id}/complete"
     mail(:to => @user.email, :subject => "Complete your registration.")
   end
   

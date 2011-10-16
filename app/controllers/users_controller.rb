@@ -56,7 +56,7 @@ class UsersController < ApplicationController
 
 		UserMailer.welcome_email(@user).deliver
 
-        format.html { redirect_to @user, :notice => 'Please check your email to finish up the registration' }
+        format.html { redirect_to products_path, :notice => 'Please check your email to finish up the registration' }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
@@ -69,7 +69,8 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
+	@user.verified = true
+	@user.save
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, :notice => 'User was successfully updated.' }
