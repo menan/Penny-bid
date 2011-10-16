@@ -56,7 +56,7 @@ class UsersController < ApplicationController
 
 		UserMailer.welcome_email(@user).deliver
 
-        format.html { redirect_to '#{RAILS_ROOT}', :notice => 'Please check your email to finish up the registration' }
+        format.html { flash[:notice] = "Check your email to finish up your registration." }
         format.json { render :json => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
