@@ -56,8 +56,8 @@ class UsersController < ApplicationController
 
 		UserMailer.welcome_email(@user).deliver
 
-        format.html { redirect_to @user, :notice => 'Please check your email to finish up the registration' }
-        format.json { render :json => @user, :status => :created, :location => @user }
+        format.html { redirect_to @product, :notice => 'Please check your email to finish up the registration' }
+        format.json { render :json => @product, :status => :created, :location => @product }
       else
         format.html { render :action => "new" }
         format.json { render :json => @user.errors, :status => :unprocessable_entity }
