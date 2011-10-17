@@ -74,6 +74,7 @@ class UsersController < ApplicationController
     	str = 'Thank you for signing up #{@user.name}, Happy bidding :)'
     else
     	str = 'Your details have been successfully updated'
+    end
     
 	@user.verified = true
 	@user.save
