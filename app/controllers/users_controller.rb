@@ -69,11 +69,17 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    
+    if @user.verified
+    	str = 'Thank you for signing up #{@user.name}, Happy bidding :)'
+    else
+    	str = 'Your details have been successfully updated'
+    
 	@user.verified = true
 	@user.save
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, :notice => 'User was successfully updated.' }
+        format.html { redirect_to @user, :notice => str }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
