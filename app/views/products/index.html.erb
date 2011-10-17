@@ -12,8 +12,8 @@
     	<img src="<%= product.image_name %>" height="100px"/><br />
     	Original Price: $<%= product.original_price %><br />
     	Current Price: $<%= product.current_price %><br />
-    	Ending in <%= time_ago_in_words(product.end_time,true) %> <br />
-    	<%= render "bids/form" %><% product.sold %><br />
+    	Ending in <div class="ending-<%= product.id %>"><script>window.Products.countDown('ending-<%= product.id %>','<%=product.end_time%>');</script></div><br />
+    	<%= render "bids/form" %><% product.sold %>
     	<%= link_to 'Show', product %> | 
     	<%= link_to 'Edit', edit_product_path(product) %> | 
     	<%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %>

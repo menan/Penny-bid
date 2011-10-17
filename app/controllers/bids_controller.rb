@@ -7,7 +7,7 @@ class BidsController < ApplicationController
     	@user = @bid.user
     	
     	
-    	if @user.bids_left > 0
+    	if @user.bids_left > 0 and @product.end_time - Time.now > 0
     	
 	    	@product.current_price = @product.current_price + 0.50
 	    	@user.bids_left = @user.bids_left - 1
@@ -26,7 +26,7 @@ class BidsController < ApplicationController
 		    end
 		else
 			respond_to do |format|
-		        format.html { redirect_to products_path, :notice => 'You have no more bids left :(, Buy some more.' }
+		        format.html { redirect_to products_path, :notice => 'You have no more bids left or the auction has ended' }
 		        format.json { render :json => @bid.errors, :status => :unprocessable_entity }
 		    end
 	    end

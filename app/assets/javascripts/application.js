@@ -7,3 +7,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+/*
+(function() {
+  $(document).ready(function() {
+    return $('.ending-3').countdown({since: new Date(2010, 12-1, 25)});
+  });
+}).call(this);*/
+
