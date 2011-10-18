@@ -1,103 +1,71 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @users }
-    end
-  end
+  
+  # Protect these actions behind an admin login
+  # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
+  
 
-  # GET /users/1
-  # GET /users/1.json
-  def show
-    @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @user }
-    end
-  end
-
-  # GET /users/new
-  # GET /users/new.json
+  # render new.rhtml
   def new
     @user = User.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @user }
+  end
+ 
+  def create
+    logout_keeping_session!
+    @user = User.new(params[:user])
+    @user.register! if @user && @user.valid?
+    success = @user && @user.valid?
+    if success && @user.errors.empty?
+      redirect_back_or_default('/', :notice => "Thanks for signing up!  We're sending you an email with your activation code.")
+    else
+      flash.now[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
+      render :action => 'new'
     end
   end
 
-  # GET /products/1/complete
-  def complete
-    @user = User.find(params[:id])
+  def activate
+    logout_keeping_session!
+    user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
+    case
+    when (!params[:activation_code].blank?) && user && !user.active?
+      user.activate!
+      redirect_to '/login', :notice => "Signup complete! Please sign in to continue."
+    when params[:activation_code].blank?
+      redirect_back_or_default('/', :flash => { :error => "The activation code was missing.  Please follow the URL from your email." })
+    else 
+      redirect_back_or_default('/', :flash => { :error  => "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in." })
+    end
+  end
+
+  def suspend
+    @user.suspend! 
+    redirect_to users_path
+  end
+
+  def unsuspend
+    @user.unsuspend! 
+    redirect_to users_path
+  end
+
+  def destroy
+    @user.delete!
+    redirect_to users_path
+  end
+
+  def purge
+    @user.destroy
+    redirect_to users_path
   end
   
-  # GET /users/1/edit
-  def edit
+  # There's no page here to update or destroy a user.  If you add those, be
+  # smart -- make sure you check that the visitor is authorized to do so, that they
+  # supply their old password along with a new one to update it, etc.
+
+  protected
+
+  def find_user
     @user = User.find(params[:id])
   end
 
-  # POST /users
-  # POST /users.json
-  def create
-    @user = User.new(params[:user])
-	@user.bids_left = 60
-	@user.verified = false
-	
-	
-	
-    respond_to do |format|
-      if @user.save
-
-		UserMailer.welcome_email(@user).deliver
-
-        format.html { redirect_to products_path, :notice => 'Please check your email to finish up the registration' }
-        format.json { render :json => @user, :status => :created, :location => @user }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @user.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /users/1
-  # PUT /users/1.json
-  def update
-    @user = User.find(params[:id])
-    
-    if @user.verified
-    	str = 'Thank you for signing up #{@user.name}, Happy bidding :)'
-    else
-    	str = 'Your details have been successfully updated'
-    end
-    
-	@user.verified = true
-	@user.save
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, :notice => str }
-        format.json { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @user.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :ok }
-    end
-  end
 end

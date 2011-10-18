@@ -1,4 +1,5 @@
 class BidsController < ApplicationController
+  before_filter :require_user
 
 	def create
     	@product = Product.find(params[:product_id])

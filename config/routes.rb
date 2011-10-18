@@ -1,12 +1,25 @@
 Bidding::Application.routes.draw do
-  resources :users
+  get "user_sessions/new"
+
+  resources :users do
+  member do
+    put :suspend
+    put :unsuspend
+    delete :purge
+  end
+end
 
   #resources :products
 	resources :products do
 	  resources :bids
 	end
-  
-  
+ 
+ resources :user_sessions
+
+match 'login' => "user_sessions#new",      :as => :login
+match 'logout' => "user_sessions#destroy", :as => :logout
+
+    
   get "home/index"
 
   # The priority is based upon order of creation:
