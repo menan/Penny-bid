@@ -1,13 +1,7 @@
 Bidding::Application.routes.draw do
   get "user_sessions/new"
 
-  resources :users do
-  member do
-    put :suspend
-    put :unsuspend
-    delete :purge
-  end
-end
+  resources :users
 
   #resources :products
 	resources :products do
@@ -16,9 +10,9 @@ end
  
  resources :user_sessions
 
-match 'login' => "user_sessions#new",      :as => :login
-match 'logout' => "user_sessions#destroy", :as => :logout
-
+ 	match 'login' => "user_sessions#new",      :as => :login
+	match 'logout' => "user_sessions#destroy", :as => :logout
+	match 'signup' => "users#new", :as => :new
     
   get "home/index"
 

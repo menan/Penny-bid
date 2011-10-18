@@ -4,7 +4,7 @@ class BidsController < ApplicationController
 	def create
     	@product = Product.find(params[:product_id])
     	@bid = @product.bids.new(params[:bid])
-    	@bid.user_id = 28
+    	@bid.user_id = current_user.id
     	@user = @bid.user
     	
     	

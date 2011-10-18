@@ -1,5 +1,7 @@
 <h1>Listing products</h1>
 <p id="notice"><%= notice %></p>
+
+
 <table width="100%">
 
 
@@ -26,4 +28,8 @@
 <br />
 
 <%= link_to 'New Product', new_product_path %>
-<%= link_to 'Users', users_path %>
+<%=
+   link_to_if(current_user.nil?, "Login", { :controller => "user_sessions", :action => "new" }) do
+     link_to("Log Out", { :controller => "user_sessions", :action => "destroy", :id => @current_user })
+   end
+%>

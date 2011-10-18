@@ -1,10 +1,10 @@
 <h1> Login</h1>
 
-<% form_for @user_session, :url => {:action => "create"} do |f| %>
+<%= form_for @user_session, :url => {:action => "create"} do |f| -%>
   <%= f.error_messages %>
   <div>
-    <%= f.label :login %>
-    <%= f.text_field :login %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
     </div>
   <div>
     <%= f.label :password %>
