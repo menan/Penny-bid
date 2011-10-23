@@ -12,38 +12,22 @@
   <% end %>
 	
   <div class="field">
-    Email:<br />
-    <b><%= @user.email %></b>
+    <%= f.label :email, "Email*" %>
+    <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :name, "Full Name*" %><br />
+    <%= f.label :name, "Full Name*" %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :password %>*<br />
+    <%= f.label :password %>*
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation, "Confirm Password" %>*<br />
+    <%= f.label :password_confirmation, "Confirm Password" %>*
     <%= f.password_field :password_confirmation %>
   </div>
-  <div class="field">
-    <%= f.label :location %><br />
-    <%= f.text_field :location %>
-  </div>
-  <div class="field">
-    <%= f.label :gender %><br />
-    <%= f.select(:gender, options_for_select([['Male'],['Female']],'Male')) %>
-  </div>
-  <div class="field">
-    <%= f.label :birthday %><br />
-    <%= f.date_select :birthday %>
-  </div>
-  <div class="field">
-    Bids Left:<br />
-    <b><%= @user.bids_left %></b>
-  </div>
   <div class="actions">
-    <%= f.submit "Complete Registration" %>
+    <%= f.submit "Sign Up" %>
   </div>
 <% end %>

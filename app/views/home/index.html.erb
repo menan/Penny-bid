@@ -1,2 +1,56 @@
-<h1>Hello, Rails!</h1>
-<%= link_to "Products", products_path %>
+<h1>Biddify</h1>
+<div style="float:left;margin: -50px 0 0 300px;">
+<p id="notice"><%= notice %></p>
+
+<%= form_for :user_session, :url => user_sessions_path do |f| -%>
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <%= f.check_box :remember_me %>
+    <%= f.label :remember_me %>
+    <%= f.submit "Login" %>
+</div>
+
+<% end %>
+</div>
+<hr />
+<div style="clear:both"></div>
+<div style="float:left;">
+<table style="width:500px;">
+
+
+  <tr>
+<% @products.each_with_index do |product,i| %>
+	<% @product = product %>
+	
+    <% if i == 2 %>
+    	</tr><tr>
+    <% end%>
+    <td align="center">
+    
+    
+    	<%= link_to product.name,product %><br />
+    	
+    	<img src="<%= product.image_name %>" height="100px"/><br />
+    	$<%= product.current_price %><br />
+    	Ending in <div class="ending-<%= product.id %>"><script>window.Products.countDown('ending-<%= product.id %>','<%=product.end_time%>');</script></div><br />
+    	<%= render "bids/form" %><% product.sold %>
+    	
+    </td>
+<% end %>
+  </tr>
+</table>
+</div>
+<div style="margin:100px 0 0 600px;">
+<h3>Signup Its Free</h3>
+	<%= render "users/form" %>
+</div>
+<div style="clear:both"></div>
+<%= link_to 'New Product', new_product_path %>
+<%=
+   link_to_if(current_user.nil?, "Login", { :controller => "user_sessions", :action => "new" }) do
+     link_to("Log Out", { :controller => "user_sessions", :action => "destroy", :id => @current_user })
+   end
+%>
