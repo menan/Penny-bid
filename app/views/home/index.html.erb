@@ -1,10 +1,11 @@
 <h1>Biddify</h1>
 <div style="float:left;margin: -50px 0 0 300px;">
-<p id="notice"><%= notice %></p>
-
-
+<% j = 4 %>
+<p></p>
+<% if current_user.nil? %>
+<% j = 2 %>
 <%= form_for :user_session, :url => user_sessions_path do |f| -%>
-  <div>
+ <div>
     <%= f.label :email %>
     <%= f.text_field :email %>
     <%= f.label :password %>
@@ -15,18 +16,29 @@
 </div>
 
 <% end %>
+<% end %>
 </div>
+
+<% if current_user %>
+
+<%= "Welcome #{current_user.name}" %><br>
+<%= "Available Bids: #{current_user.bids_left}" %><br>
+
+<% end %>
+
 <hr />
 <div style="clear:both"></div>
+
+<p id="notice"><%= notice %></p>
 <div style="float:left;">
-<table style="width:500px;">
+<table style="width:700px;">
 
 
   <tr>
 <% @products.each_with_index do |product,i| %>
 	<% @product = product %>
 	
-    <% if i == 2 %>
+    <% if i == j %>
     	</tr><tr>
     <% end%>
     <td align="center">
@@ -44,14 +56,16 @@
   </tr>
 </table>
 </div>
+<% if current_user.nil? %>
 <div style="margin:100px 0 0 600px;">
 <h3>Signup Its Free</h3>
 	<%= render "users/form" %>
 </div>
+<% end %>
 <div style="clear:both"></div>
-<%= link_to 'New Product', new_product_path %>
+<%= link_to 'Add Product', new_product_path %>
 <%=
    link_to_if(current_user.nil?, "Login", { :controller => "user_sessions", :action => "new" }) do
-     link_to("Log Out", { :controller => "user_sessions", :action => "destroy", :id => @current_user })
+     link_to("Log Out", { :controller => "user_sessions", :action => "destroy" })
    end
 %>

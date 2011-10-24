@@ -1,7 +1,13 @@
 class HomeController < ApplicationController
   
   def index
-    @products = Product.ending
+  
+  	if current_user.nil?
+    	@products = Product.ending
+    else
+    	@products = Product.home
+    end
+     
     @user = User.new
 
     respond_to do |format|

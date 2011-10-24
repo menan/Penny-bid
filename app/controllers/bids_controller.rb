@@ -18,7 +18,7 @@ class BidsController < ApplicationController
 		      if @bid.save
 	    		@product.save
 	    		@user.save
-		        format.html { redirect_to products_path, :notice => 'Bid was successfully placed.' }
+		        format.html { redirect_to :back, :notice => 'Bid was successfully placed.' }
 		        format.json { render :json => @product, :status => :created, :location => @product }
 		      else
 		        format.html { render :action => "new" }
@@ -27,7 +27,7 @@ class BidsController < ApplicationController
 		    end
 		else
 			respond_to do |format|
-		        format.html { redirect_to products_path, :notice => 'You have no more bids left or the auction has ended' }
+		        format.html { redirect_to :back, :notice => 'You have no more bids left or the auction has ended' }
 		        format.json { render :json => @bid.errors, :status => :unprocessable_entity }
 		    end
 	    end
